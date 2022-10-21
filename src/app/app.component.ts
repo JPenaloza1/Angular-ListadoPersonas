@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoggingService } from './LoggingService.service';
 import { Persona } from './persona.model';
 import { PersonaService } from './persona.service';
@@ -8,14 +8,6 @@ import { PersonaService } from './persona.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   titulo = 'Listado de Personas';
-  personas: Persona[] = [];
-
-    constructor(private loggingService:LoggingService,
-                private personaService:PersonaService){}
-  
-    ngOnInit(): void {
-      this.personas = this.personaService.personas;
-    }
 }
