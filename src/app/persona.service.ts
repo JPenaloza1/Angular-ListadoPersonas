@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from "@angular/core";
+import { DataServices } from "./data.services";
 import { LoggingService } from "./LoggingService.service";
 import { Persona } from "./persona.model";
 
@@ -12,11 +13,13 @@ export class PersonaService {
 
     saludar = new EventEmitter<number>();
 
-    constructor(private loggingService:LoggingService){}
+    constructor(private loggingService:LoggingService,
+                private dataServices: DataServices){}
 
     agregarPersona( persona:Persona ) {
         this.loggingService.enviarMensajeAConsola("Agregamos persona: " + persona.nombre);
         this.personas.push( persona );
+        this.dataServices.guardarPersonas( this.personas );
     }
 
     encontrarPersona( index:number ) {
@@ -28,5 +31,9 @@ export class PersonaService {
         let persona1 = this.personas[index];
         persona1.nombre = persona.nombre;
         persona1.apellido = persona.apellido;
+    }
+
+    eliminarPersona(index:number) {
+        this.personas.splice(index, 1);
     }
 }
