@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoggingService } from '../LoggingService.service';
+import { Router } from '@angular/router';
 import { Persona } from '../persona.model';
 import { PersonaService } from '../persona.service';
 
@@ -12,11 +12,22 @@ export class PersonasComponent implements OnInit {
 
   personas: Persona[] = [];
 
-  constructor(private loggingService:LoggingService,
-              private personaService:PersonaService){}
+  constructor(
+    private router:Router,
+    private personaService:PersonaService
+  ){}
 
   ngOnInit(): void {
-    this.personas = this.personaService.personas;
+    this.personaService.obtenerPersonas()
+    .subscribe((personas: Object) => {
+      this.personas = personas as Persona[];
+      this.personaService.setPersonas(personas as Persona[]);
+    });
+    console.log("Jijijij" + this.personas);
+  }
+
+  agregar() {
+    this.router.navigate(["personas/this.agregar"]);
   }
 
 }
